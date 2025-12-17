@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SuperLinkSale - 极致短链接体验</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚀</text></svg>">
+    <link rel="stylesheet" href="/static/css/index.css">
+</head>
+<body>
+    <canvas id="particleCanvas"></canvas>
+    
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <span class="logo-icon">🚀</span>
+                <span class="logo-text">SuperLinkSale</span>
+            </div>
+            <nav class="nav">
+                <a href="/admin" class="nav-link">管理后台</a>
+            </nav>
+        </header>
+
+        <main class="hero">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    <span class="gradient-text">极致短链接</span>
+                    <br>
+                    <span class="typing-text">重新定义分享体验</span>
+                </h1>
+                <p class="hero-subtitle">
+                    简洁 · 高效 · 安全 · 可控
+                </p>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">⚡</div>
+                        <div class="stat-value" id="totalLinks">0</div>
+                        <div class="stat-label">生成链接</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">👀</div>
+                        <div class="stat-value" id="totalClicks">0</div>
+                        <div class="stat-label">总点击量</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🎯</div>
+                        <div class="stat-value">99.9%</div>
+                        <div class="stat-label">可用率</div>
+                    </div>
+                </div>
+
+                <div class="cta-section">
+                    <a href="/admin" class="cta-button">
+                        <span>开始使用</span>
+                        <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M5 12h14M12 5l7 7-7 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                    <a href="#features" class="cta-button-secondary">
+                        了解更多
+                    </a>
+                </div>
+            </div>
+
+            <div class="hero-graphic">
+                <div class="floating-card card-1">
+                    <div class="card-header">
+                        <div class="card-dot"></div>
+                        <div class="card-dot"></div>
+                        <div class="card-dot"></div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-line"></div>
+                        <div class="card-line short"></div>
+                        <div class="card-line"></div>
+                    </div>
+                </div>
+                <div class="floating-card card-2">
+                    <div class="card-icon">🔗</div>
+                    <div class="card-text">短链生成中...</div>
+                </div>
+                <div class="floating-card card-3">
+                    <div class="card-check">✓</div>
+                    <div class="card-text">生成成功!</div>
+                </div>
+            </div>
+        </main>
+
+        <section id="features" class="features">
+            <h2 class="section-title">核心功能</h2>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🎨</div>
+                    <h3>模板管理</h3>
+                    <p>预设文案模板，一键快速填充，提升工作效率</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">⏰</div>
+                    <h3>过期控制</h3>
+                    <p>灵活设置链接有效期，永久或定时，随心所欲</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>数据统计</h3>
+                    <p>实时追踪点击数据，深入了解链接表现</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>安全可靠</h3>
+                    <p>密码保护后台，数据本地存储，隐私有保障</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>极速响应</h3>
+                    <p>毫秒级跳转速度，SQLite 本地部署，快如闪电</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>简单易用</h3>
+                    <p>直观的操作界面，无需复杂配置，开箱即用</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="tech-stack">
+            <h2 class="section-title">技术栈</h2>
+            <div class="tech-grid">
+                <div class="tech-item">
+                    <div class="tech-logo">🐍</div>
+                    <div class="tech-name">Python</div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-logo">⚡</div>
+                    <div class="tech-name">FastAPI</div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-logo">💾</div>
+                    <div class="tech-name">SQLite</div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-logo">🎨</div>
+                    <div class="tech-name">Modern CSS</div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <span class="logo-icon">🚀</span>
+                    <span class="logo-text">SuperLinkSale</span>
+                </div>
+                <div class="footer-links">
+                    <a href="https://github.com" target="_blank" class="footer-link">GitHub</a>
+                    <a href="/admin" class="footer-link">管理后台</a>
+                    <a href="/docs" class="footer-link">API 文档</a>
+                </div>
+                <div class="footer-copy">
+                    © 2024 SuperLinkSale. Made with ❤️
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="/static/js/index.js"></script>
+</body>
+</html>

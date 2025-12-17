@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理后台 - SuperLinkSale</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚀</text></svg>">
+    <link rel="stylesheet" href="/static/css/admin.css">
+</head>
+<body>
+    <div id="loginModal" class="modal">
+        <div class="modal-content login-card">
+            <div class="login-header">
+                <div class="login-icon">🔐</div>
+                <h2>管理员登录</h2>
+                <p>请输入密码以访问后台管理</p>
+            </div>
+            <form id="loginForm" class="login-form">
+                <div class="form-group">
+                    <input 
+                        type="password" 
+                        id="password" 
+                        placeholder="请输入管理密码"
+                        class="form-input"
+                        required
+                    >
+                </div>
+                <button type="submit" class="btn-login">
+                    <span>登录</span>
+                    <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M5 12h14M12 5l7 7-7 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <div id="loginError" class="error-message"></div>
+            </form>
+        </div>
+    </div>
+
+    <div id="adminDashboard" class="dashboard" style="display: none;">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <span class="logo-icon">🚀</span>
+                    <span class="logo-text">SuperLinkSale</span>
+                </div>
+            </div>
+            
+            <div class="sidebar-menu">
+                <a href="#links" class="menu-item active" data-tab="links">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" stroke-width="2"/>
+                        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" stroke-width="2"/>
+                    </svg>
+                    <span>短链接管理</span>
+                </a>
+                <a href="#templates" class="menu-item" data-tab="templates">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke-width="2"/>
+                        <polyline points="14 2 14 8 20 8" stroke-width="2"/>
+                    </svg>
+                    <span>模板管理</span>
+                </a>
+            </div>
+            
+            <div class="sidebar-footer">
+                <a href="/" class="menu-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" stroke-width="2"/>
+                    </svg>
+                    <span>返回首页</span>
+                </a>
+                <button class="menu-item" onclick="logout()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" stroke-width="2"/>
+                        <polyline points="16 17 21 12 16 7" stroke-width="2"/>
+                        <line x1="21" y1="12" x2="9" y2="12" stroke-width="2"/>
+                    </svg>
+                    <span>退出登录</span>
+                </button>
+            </div>
+        </nav>
+
+        <main class="main-content">
+            <div id="linksTab" class="tab-content active">
+                <div class="content-header">
+                    <h1>短链接管理</h1>
+                    <button class="btn-primary" onclick="showCreateLinkModal()">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <line x1="12" y1="5" x2="12" y2="19" stroke-width="2"/>
+                            <line x1="5" y1="12" x2="19" y2="12" stroke-width="2"/>
+                        </svg>
+                        <span>创建短链接</span>
+                    </button>
+                </div>
+
+                <div class="stats-overview">
+                    <div class="stat-card">
+                        <div class="stat-icon">🔗</div>
+                        <div class="stat-content">
+                            <div class="stat-value" id="totalLinksCount">0</div>
+                            <div class="stat-label">总链接数</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">👀</div>
+                        <div class="stat-content">
+                            <div class="stat-value" id="totalClicksCount">0</div>
+                            <div class="stat-label">总点击量</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">📅</div>
+                        <div class="stat-content">
+                            <div class="stat-value" id="todayLinksCount">0</div>
+                            <div class="stat-label">今日新增</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="data-table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>短链接</th>
+                                <th>标题</th>
+                                <th>原始链接</th>
+                                <th>点击次数</th>
+                                <th>过期时间</th>
+                                <th>创建时间</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="linksTableBody">
+                            <tr>
+                                <td colspan="7" class="no-data">暂无数据</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="templatesTab" class="tab-content">
+                <div class="content-header">
+                    <h1>模板管理</h1>
+                    <button class="btn-primary" onclick="showCreateTemplateModal()">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <line x1="12" y1="5" x2="12" y2="19" stroke-width="2"/>
+                            <line x1="5" y1="12" x2="19" y2="12" stroke-width="2"/>
+                        </svg>
+                        <span>创建模板</span>
+                    </button>
+                </div>
+
+                <div class="templates-grid" id="templatesGrid">
+                    <div class="template-card empty-state">
+                        <div class="empty-icon">📝</div>
+                        <p>暂无模板</p>
+                        <p class="empty-hint">点击上方按钮创建第一个模板</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div id="linkModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="linkModalTitle">创建短链接</h2>
+                <button class="modal-close" onclick="closeLinkModal()">×</button>
+            </div>
+            <form id="linkForm" class="modal-form">
+                <input type="hidden" id="linkId">
+
+                <div class="form-group">
+                    <label>标题</label>
+                    <input type="text" id="linkTitle" class="form-input" placeholder="提货信息标题">
+                </div>
+
+                <div class="form-group">
+                    <label>描述</label>
+                    <div class="description-with-template">
+                        <textarea id="linkDescription" class="form-textarea" rows="4" placeholder="提货内容详情（提货码、使用说明等）..."></textarea>
+                        <select id="templateSelect" class="template-select" onchange="applyTemplate()">
+                            <option value="">选择模板快速填充</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>相关链接（可选）</label>
+                    <input type="url" id="linkOriginalUrl" class="form-input" placeholder="https://example.com（可选）">
+                    <small class="form-hint">如需附带相关网址可填写，否则留空</small>
+                </div>
+
+                <div class="form-group">
+                    <label>过期时间</label>
+                    <input type="datetime-local" id="linkExpireAt" class="form-input">
+                    <small class="form-hint">留空则永不过期</small>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary" onclick="closeLinkModal()">取消</button>
+                    <button type="submit" class="btn-primary">
+                        <span id="linkSubmitText">创建</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="templateModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="templateModalTitle">创建模板</h2>
+                <button class="modal-close" onclick="closeTemplateModal()">×</button>
+            </div>
+            <form id="templateForm" class="modal-form">
+                <input type="hidden" id="templateId">
+                
+                <div class="form-group">
+                    <label>模板名称 *</label>
+                    <input type="text" id="templateName" class="form-input" required placeholder="例如: 产品推广模板">
+                </div>
+
+                <div class="form-group">
+                    <label>标题模板</label>
+                    <input type="text" id="templateTitle" class="form-input" placeholder="模板中的标题内容">
+                </div>
+
+                <div class="form-group">
+                    <label>描述模板</label>
+                    <textarea id="templateDescription" class="form-textarea" rows="4" placeholder="模板中的描述内容"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>备注</label>
+                    <textarea id="templateNotes" class="form-textarea" rows="2" placeholder="模板说明或备注信息"></textarea>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary" onclick="closeTemplateModal()">取消</button>
+                    <button type="submit" class="btn-primary">
+                        <span id="templateSubmitText">创建</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="/static/js/admin.js"></script>
+</body>
+</html>
