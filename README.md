@@ -94,7 +94,7 @@ chmod +x start.sh
 #### 1. 克隆项目
 
 ```bash
-git clone https://github.com/yourusername/superlinksale.git
+git clone https://github.com/maodeyu180/superlinksale.git
 cd superlinksale
 ```
 
